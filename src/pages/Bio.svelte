@@ -21,15 +21,17 @@
 <style>
     .Bio {
         color: white;
-        height: 100vh;
+        height: max(100vh, auto);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
+    .Bio.white {
+        color: black;
+    }
     h1 {
         font-size: min(3rem, 10vw);
-        color: white;
     }
     .Rows {
         display: flex;
@@ -46,6 +48,9 @@
         border: 1px solid white;
         border-radius: 20px;
         padding: 20px;
+    }
+    .white .Row {
+        border: 1px solid black;
     }
     .Row h2 {
         align-self: center;
@@ -71,7 +76,7 @@
         filter: brightness(0.5);
     }
 </style>
-<div class="Bio">
+<div class={`Bio ${whiteTheme && 'white'}`}>
     <h1>Bio</h1>
     <div class="Rows">
         <div class="Row PersonalInfo">
