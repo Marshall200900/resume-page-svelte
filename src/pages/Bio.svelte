@@ -9,8 +9,8 @@
     let jobs = [
         {title: 'Simpl', city: 'Perm', type: 'Internship', year: '2018'
         , description: 'The first official job in a company, that does B2B projects. ' +
-        'I was a C# intern there and got a lot of experience being a worker.' + 
-        'The intentions were to develop myself in a field of .NET developent, but eventually I the other way.'},
+        'I was a C# intern there and got a lot of experience just being a worker. ' + 
+        'The intentions were to develop myself in a field of .NET developent, but eventually I had gone the other way.'},
         {title: 'Yandex', city: 'Saint-Petersburg', type: 'Internship', year: '2021'
         , description: 'In Yandex I was a frontend intern developer and did an inner project, that was ' + 
         'aimed at inner employees. There I have learned 60% of all the knowledge I have now, got experience in ' + 
@@ -21,11 +21,13 @@
 <style>
     .Bio {
         color: white;
+        min-height: 100vh;
         height: max(100vh, auto);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding: 10px;
     }
     .Bio.white {
         color: black;
@@ -73,7 +75,7 @@
         font-size: 1.2rem;
     }
     .JobExperience .Type {
-        filter: brightness(0.5);
+        color: gray;
     }
 </style>
 <div class={`Bio ${whiteTheme && 'white'}`}>

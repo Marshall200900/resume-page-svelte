@@ -28,7 +28,8 @@
     }
     
     .ContactPage {
-        height: 100vh;
+        min-height: 100vh;
+        height: max(100vh, auto);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -43,9 +44,12 @@
     }
     h2 a {
         color: white;
+        font-size: min(1.5rem, 5vw);
     }
     h3 {
         margin-bottom: 5px;
+        font-size: min(1.5rem, 5vw);
+
     }
     .mailContainer {
         height: 1rem;

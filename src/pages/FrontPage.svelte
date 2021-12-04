@@ -33,8 +33,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        
-        height: 100vh;
+        min-height: 100vh;
+        height: max(100vh, auto);
     }
     h1, h2 {
         color: white;

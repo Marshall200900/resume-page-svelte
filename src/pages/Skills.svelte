@@ -17,9 +17,10 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-
-        height: 100vh;
+        min-height: 100vh;
+        height: max(100vh, 800px);
         color: white;
+        padding: 0 10px;
     }
     .SkillsList {
         text-align: center;
@@ -36,6 +37,7 @@
     }
     span {
         margin-top: 100px;
+        text-align: center;
     }
     .white {
         color: black;
