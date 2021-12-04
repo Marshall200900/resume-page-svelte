@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte';
     export let whiteTheme: boolean;
     export let setWhiteTheme;
 </script>
 <style>
     div {
-        position: fixed;
+        position: absolute;
         right: 20px;
         top: 20px;
         font-size: 1.2rem;

@@ -62,7 +62,7 @@
 
     }
     h1 {
-        font-size: 3rem;
+        font-size: min(10vw, 3rem);
     }
     h1.Cursor {
         border-right: 1px solid white;  

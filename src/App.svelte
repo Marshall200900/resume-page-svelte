@@ -1,6 +1,9 @@
 <script lang="ts">
     import Topbar from './components/Topbar.svelte';
+    import Bio from './pages/Bio.svelte';
+    import ContactPage from './pages/ContactPage.svelte';
     import FrontPage from './pages/FrontPage.svelte';
+    import Projects from './pages/Projects.svelte';
     import Skills from './pages/Skills.svelte';
 
     $: whiteTheme = false;
@@ -29,4 +32,7 @@
 </style>
 <Topbar whiteTheme={whiteTheme} setWhiteTheme={setWhiteTheme} />
 <FrontPage whiteTheme={whiteTheme} />
+<Bio whiteTheme={whiteTheme} />
 <Skills whiteTheme={whiteTheme} />
+<Projects whiteTheme={whiteTheme} />
+<ContactPage whiteTheme={whiteTheme} />

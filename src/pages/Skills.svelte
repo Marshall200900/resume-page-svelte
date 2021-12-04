@@ -27,7 +27,7 @@
     h1 {
         color: white;
         transition: color 800ms ease;
-        font-size: 3rem;
+        font-size: min(10vw, 3rem);
     }
     .white h1 {
         color: black;
