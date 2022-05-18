@@ -1,21 +1,46 @@
 <script lang="ts">
-    export let whiteTheme: boolean;
-    let personalInfo = [
-        {name: 'Age', value: '21'},
-        {name: 'City of residence', value: 'Perm'},
-        {name: 'Education', value: 'HSE'},
-        {name: 'Course', value: '4 (last one)'},
-    ];
-    let jobs = [
-        {title: 'Simpl', city: 'Perm', type: 'Internship', year: '2018'
-        , description: 'The first official job in a company, that does B2B projects. ' +
-        'I was a C# intern there and got a lot of experience just being a worker. ' + 
-        'The intentions were to develop myself in a field of .NET developent, but eventually I had gone the other way.'},
-        {title: 'Yandex', city: 'Saint-Petersburg', type: 'Internship', year: '2021'
-        , description: 'In Yandex I was a frontend intern developer and did an inner project, that was ' + 
-        'aimed at inner employees. There I have learned 60% of all the knowledge I have now, got experience in ' + 
-        'React, Svelte, CI and many other things.'}
-    ];
+    import { theme, lang } from '../store';
+    import { localeBuilder } from '../lang/index';
+    import { afterUpdate, onMount } from 'svelte';
+
+    $: locale = localeBuilder($lang);
+    console.log(locale)
+    let personalInfo = [];
+    let jobs = [];
+    let initValues = () => {
+        personalInfo = [
+            {name: locale("Bio.PersonalInfo.Age.title"), value: locale("Bio.PersonalInfo.Age.value")},
+            {name: locale("Bio.PersonalInfo.City.title"), value: locale("Bio.PersonalInfo.City.value")},
+            {name: locale("Bio.PersonalInfo.Education.title"), value:  locale("Bio.PersonalInfo.Education.value")},
+            {name: locale("Bio.PersonalInfo.Course.title"), value:  locale("Bio.PersonalInfo.Course.value")},
+        ];
+        jobs = [
+            {
+                title: locale("Bio.Experience.Simpl.title"),
+                city: locale("Bio.Experience.Simpl.city"),
+                type: locale("Bio.Experience.Simpl.type"),
+                year: '2019',
+                description: locale("Bio.Experience.Simpl.description")
+            },
+            {
+                title: locale("Bio.Experience.Yandex.title"),
+                city: locale("Bio.Experience.Yandex.city"),
+                type: locale("Bio.Experience.Yandex.type"),
+                year: '2021',
+                description: locale("Bio.Experience.Yandex.description")
+            },
+            {
+                title: locale("Bio.Experience.Greendata.title"),
+                city: locale("Bio.Experience.Greendata.city"),
+                type: locale("Bio.Experience.Greendata.type"),
+                year: '2022',
+                description: locale("Bio.Experience.Greendata.description")
+            },
+        ];
+    }
+    afterUpdate(() => {
+        initValues();
+    })
 </script>
 
 <style>
@@ -41,7 +66,7 @@
         flex-direction: row;
         justify-content: space-evenly;
         flex-wrap: wrap;
-        row-gap: 50px;
+        gap: 50px;
     }
     .Row {
         flex: 0 1 400px;
@@ -78,11 +103,11 @@
         color: gray;
     }
 </style>
-<div class={`Bio ${whiteTheme && 'white'}`}>
-    <h1>Bio</h1>
+<div class={`Bio ${$theme}`}>
+    <h1>{locale("Bio.title")}</h1>
     <div class="Rows">
         <div class="Row PersonalInfo">
-            <h2>Personal info 📝</h2>
+            <h2>{locale("Bio.PersonalInfo.title")} 📝</h2>
             {#each personalInfo as fact}
                 <div class="fact">
                     <span>{fact.name}</span>
@@ -91,7 +116,7 @@
             {/each}
         </div>
         <div class="Row Jobs">
-            <h2>Experience 📈</h2>
+            <h2>{locale("Bio.Experience.title")} 📈</h2>
             {#each jobs as job, i}
                 <div class="JobExperience">
                     <h3>{job.title}</h3>

@@ -1,23 +1,18 @@
 <script lang="ts">
-    export let whiteTheme: boolean;
+    import { theme, lang } from '../store';
     import typewriter from '../tools/typewriter';
-
+    import { localeBuilder } from '../lang';
+    import { screenAppear } from '../tools/screen-appear-check';
     $: mailVisible = false;
+    $: locale = localeBuilder($lang);
+
 
     let mail;
-    const func = (mail) => {
-        if (mail) {
-            const rect = mail.getBoundingClientRect();
-            const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-            if (!(rect.bottom < 0 || rect.top - viewHeight >= 0)) {
-                console.log('here');
-                mailVisible = true;
-            }
 
-        }
-    }
 </script>
-<svelte:window on:scroll={() => func(mail)} />
+<svelte:window on:scroll={() => screenAppear(mail, () => {
+    mailVisible = true;
+})} />
 
 <style>
     .ContactPage.white {
@@ -55,9 +50,9 @@
         height: 1rem;
     }
 </style>
-<div class={`ContactPage ${whiteTheme && 'white'}`}>
-    <h1>Contact me</h1>
-    <h3>Mail</h3>
+<div class={`ContactPage ${$theme}`}>
+    <h1>{locale("ContactMe.title")}</h1>
+    <h3>{locale("ContactMe.mail")}</h3>
     <h2 class="mailContainer" bind:this={mail} >
         {#if mailVisible}
             <a transition:typewriter 

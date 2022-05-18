@@ -1,40 +1,27 @@
 <script lang="ts">
-    export let whiteTheme: boolean;
-    const projects = [
+    
+    import { theme, lang } from '../store';
+    import { localeBuilder } from '../lang/index';
+    import { afterUpdate } from 'svelte';
+
+    $: locale = localeBuilder($lang);
+    afterUpdate(() => {
+        projects = [
         {
-            title: 'Online shop MVP',
-            link: 'https://github.com/Marshall200900/online-shop',
-            stack: 'React Redux Webpack SCSS',
-            description: 'A small but complete MVP app with adaptive design. ' + 
-            'It is made to get more experience in React and Redux'
-        },
-        {
-            title: 'This awesome website',
-            link: 'https://github.com/Marshall200900/resume-page-svelte',
-            stack: 'Svelte Typescript Vite.js',
-            description: 'This website is made using a new framework Svelte.js ' + 
-            '(If we compare to other ones, like Angular and React). The goal is to use it ' + 
-            'as a resume for job search.'
-        },
-        {
-            title: 'Guideline System Development for Music Selection Based on individual' + 
-            ' Biometrics and Personal Preferences of the User',
+            title: locale("Projects.Mobile.title"),
             link: '',
             stack: 'Android Java Python',
-            description: 'This was a course team project in the last year ' + 
-            'At the time was the biggest thing I have ever created and we are really proud of it. ' + 
-            'The goal of the system is to recommend you a playlist in Spotify based on given parameters ' + 
-            'and heartbeat.'
+            description: locale("Projects.Mobile.description"),
         },
         {
-            title: 'Weblog',
-            link: 'Currently developing',
+            title: locale("Projects.WebBlog.title"),
+            link: '',
             stack: 'React Typescript Webpack SASS',
-            description: 'The work I got while I do not have regular job. ' + 
-            'The website will not be using any CMS, but will have backend for ' +
-            'CRUDing data and handling authorization in admin page. '
+            description: locale("Projects.WebBlog.description")
         }
     ];
+    })
+    let projects = [];
 </script>
 
 <style>
@@ -87,14 +74,14 @@
         margin-top: 0;
     }
 </style>
-<div class={`ProjectsPage ${whiteTheme && 'white'}`}>
-    <h1>Projects</h1>
+<div class={`ProjectsPage ${$theme}`}>
+    <h1>{locale("Projects.title")}</h1>
     <div class="Projects">
         {#each projects as project, i}
             <div class="Project">
                 <h2>{project.title}</h2>
                 <div class="Link"><a href={project.link}>{project.link}</a></div>
-                <div class="Stack">Stack: {project.stack}</div>
+                <div class="Stack">{locale("Projects.Stack.title")}: {project.stack}</div>
                 <span>{project.description}</span>
             </div>
         {/each}

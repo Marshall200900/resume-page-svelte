@@ -1,6 +1,13 @@
 <script lang="ts">
-    import Skill from '../components/Skill.svelte';    
-    export let whiteTheme: boolean;
+    import Skill from '../components/Skill.svelte'; 
+    import { screenAppear } from '../tools/screen-appear-check';  
+    import { theme, lang } from '../store';
+    import { localeBuilder } from '../lang';
+
+    $: locale = localeBuilder($lang);
+    $: visible = false;
+    let skillslist;
+
     const skillsList = [
         {skillName: 'React.js', rate: 5 },
         {skillName: 'Typescript', rate: 4 },
@@ -11,6 +18,20 @@
         {skillName: 'Preact.js', rate: 4 },
     ];
 </script>
+<svelte:window on:scroll={() => screenAppear(skillslist, () => {
+    visible = true;
+})} />
+
+<div class={`SkillsPage ${$theme}`}>
+    <h1>{locale("Skills.title")}</h1>
+    <div class="SkillsList" bind:this={skillslist}>
+        {#if visible}
+            {#each skillsList as s, i}
+            <Skill appearDelay={i} skill={s}/>
+            {/each}
+        {/if}
+    </div>
+</div>
 <style>
     .SkillsPage {
         display: flex;
@@ -44,12 +65,4 @@
         transition: color 800ms ease;
     }
 </style>
-<div class={`SkillsPage ${whiteTheme && 'white'}`}>
-    <h1>Skills</h1>
-    <div class="SkillsList">
-        {#each skillsList as s, i}
-            <Skill whiteTheme={whiteTheme} skill={s}/>
-        {/each}
-    </div>
-    <span>The level of technology proficiency is formed in relation to each other</span>
-</div>
+

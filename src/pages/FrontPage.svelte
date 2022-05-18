@@ -1,21 +1,16 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { fade } from 'svelte/transition';
-    import typewriter from '../tools/typewriter';
-    
-    export let whiteTheme: boolean;
+    import Image from '../assets/avatar.jpeg';
+    import { theme, lang } from '../store';
+    import { localeBuilder } from '../lang';
 
-    $: cursorVisible = true;
-    $: h2Visible = false;
+    $: locale = localeBuilder($lang);
     $: textVisible = false;
     
     onMount(() => {
         textVisible = true;
     });
-    const typewriterEnd = () => {
-        cursorVisible = false;
-        h2Visible = true;
-    }
 
 </script>
 
@@ -24,45 +19,59 @@
         color: black;
         transition: color 800ms ease;
     }
-    .white .Cursor {
-        border-right: 1px solid black;  
-
-    }
     .FrontPage {
+        margin: 10px;
+
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+
         min-height: 100vh;
         height: max(100vh, auto);
     }
     h1, h2 {
         color: white;
         transition: color 800ms ease;
-
+        text-align: center;
     }
     h1 {
         font-size: min(10vw, 3rem);
     }
-    h1.Cursor {
-        border-right: 1px solid white;  
-    }
-    .h2Container {
-        height: 1rem;
-    }
-</style>
 
-<div class={`FrontPage ${whiteTheme && 'white'}`}>
-    {#if textVisible}
-        <h1 class={cursorVisible && 'Cursor'}
-            transition:typewriter 
-            on:introend={typewriterEnd}>
-            Arseniy Sidorov
-        </h1>
-    {/if}
-    <div class="h2Container">
-        {#if h2Visible}
-            <h2 transition:fade={{delay: 500, duration: 800}}>web-developer</h2>
-        {/if}
+    .frontpage__text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .frontpage__image {
+        width: 350px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .frontpage__image img {
+        width: 100%;
+
+    }
+    /* @media (min-width: 500px) {
+        .FrontPage {
+            flex-direction: row;
+        }
+    } */
+</style>
+{#if textVisible}
+    
+    <div class={`FrontPage ${$theme}`}>
+        <div transition:fade={{delay: 200, duration: 600}} class="frontpage__text">
+            <h1>{locale("FrontPage.name")}</h1>
+            <h2>{locale("FrontPage.job")}</h2>
+        </div>
+        <div class="frontpage__image">
+            <img src={Image} alt="avatar" />
+        </div>
     </div>
-</div>
+{/if}
