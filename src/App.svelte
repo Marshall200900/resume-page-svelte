@@ -1,20 +1,14 @@
 <script lang="ts">
+import { onMount } from 'svelte';
+
     import Topbar from './components/Topbar.svelte';
     import Bio from './pages/Bio.svelte';
     import ContactPage from './pages/ContactPage.svelte';
     import FrontPage from './pages/FrontPage.svelte';
     import Projects from './pages/Projects.svelte';
-    import Skills from './pages/Skills.svelte';
+    import Skills from './pages/Skills.svelte'; 
 
-    $: whiteTheme = false;
 
-    let setWhiteTheme = (isWhite: boolean) => {
-        whiteTheme = isWhite;
-
-        isWhite 
-        ? document.body.classList.add('white')
-        : document.body.classList.remove('white');
-    }
 </script>
 
 <style>
@@ -30,9 +24,9 @@
         
     }
 </style>
-<Topbar whiteTheme={whiteTheme} setWhiteTheme={setWhiteTheme} />
-<FrontPage whiteTheme={whiteTheme} />
-<Bio whiteTheme={whiteTheme} />
-<Skills whiteTheme={whiteTheme} />
-<Projects whiteTheme={whiteTheme} />
-<ContactPage whiteTheme={whiteTheme} />
+<Topbar />
+<FrontPage />
+<Bio />
+<Skills />
+<Projects />
+<ContactPage />

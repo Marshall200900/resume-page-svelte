@@ -1,6 +1,17 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+    import { theme, lang } from '../store';
+
+    import { fly } from 'svelte/transition'; 
+
     export let skill: {skillName: string, rate: number};
-    export let whiteTheme: boolean;
+    export let appearDelay: number = 50;
+
+    $: visible = false;
+    
+    onMount(() => {
+        visible = true;
+    });
 </script>
 <style>
     div.white {
@@ -45,8 +56,9 @@
     }
 
 </style>
-
-<div class={`SkillContainer ${whiteTheme && 'white'}`}>
+{#if visible}
+    
+<div in:fly={{ x: 200, duration: 400, delay: appearDelay*50 }} class={`SkillContainer ${$theme}`}>
     <div class={`Skill`}><span>{skill.skillName}&nbsp;&nbsp;</span>
         {#each Array(skill.rate) as _, i}
             <div class="dot Bold"/>&nbsp;
@@ -56,3 +68,4 @@
         {/each}
     </div>
 </div>
+    {/if}

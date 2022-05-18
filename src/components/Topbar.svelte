@@ -1,15 +1,20 @@
 <script lang="ts">
-    export let whiteTheme: boolean;
-    export let setWhiteTheme;
+    import { theme, lang } from '../store';
+    import { localeBuilder } from '../lang';
+
+    $: locale = localeBuilder($lang);
+    
+    
 </script>
 <style>
-    div {
-        position: absolute;
-        right: 20px;
-        top: 20px;
+    .topbar {
+        padding: 10px;
         font-size: 1.2rem;
         color: white;
         transition: color 800ms ease;
+
+        display: flex;
+        justify-content: space-between;
     }
     div.white {
         color: black;
@@ -19,8 +24,15 @@
         cursor: pointer;
     }
 </style>
-<div class={whiteTheme && 'white'}>
-    <span on:click={() => setWhiteTheme(true)}>white</span>
-     / 
-    <span on:click={() => setWhiteTheme(false)}>black</span>
+<div class={`topbar ${$theme}`}>
+    <div class="changeLang">
+        <span on:click={() => lang.set("ru")}>ru</span>
+        / 
+       <span on:click={() => lang.set("en")}>en</span>
+    </div>
+    <div class="changeColor">
+        <span on:click={() => theme.set("white")}>{locale("color.white")}</span>
+         / 
+        <span on:click={() => theme.set("")}>{locale("color.black")}</span>
+    </div>
 </div>
